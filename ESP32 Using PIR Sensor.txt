@@ -1,0 +1,54 @@
+#define BLYNK_PRINT Serial
+#define BLYNK_TEMPLATE_ID "TMPL3sQc2GMLn"
+#define BLYNK_TEMPLATE_NAME "PIR Security System"
+#define BLYNK_AUTH_TOKEN "wimB8AqVkZwfBjve5Fhhf_QiXZCSUPp4"
+
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+
+// WiFi 
+char ssid[] = "Samsung Galaxy A35";
+char pass[] = "pradeepkumarkrish@11";
+
+BlynkTimer timer;
+
+int pirPin = D1;   // PIR sensor pin
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(pirPin, INPUT);
+
+  Blynk.begin(BLYNK_AUTH_TOKEN, ssid, pass);
+
+  timer.setInterval(1000L, checkSensor);
+}
+
+void checkSensor()
+{
+  int sensor = digitalRead(pirPin);
+  Serial.println(sensor);
+
+  // LED widget control (V0)
+  if (sensor == 1)
+  {
+    Blynk.virtualWrite(V0, 255);   // LED ON (Bright Red)
+    Blynk.logEvent("pir_security_system", "⚠️ Motion Detected!");
+  }
+  else
+  {
+    Blynk.virtualWrite(V0, 0);     // LED OFF
+  }
+}
+
+void loop()
+{
+  Blynk.run();
+  timer.run();
+}
+
+
+
+
+
+
