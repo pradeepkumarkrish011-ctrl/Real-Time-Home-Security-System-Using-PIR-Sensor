@@ -7,8 +7,8 @@
 #include <BlynkSimpleEsp8266.h>
 
 // WiFi 
-char ssid[] = "Samsung Galaxy A35";
-char pass[] = "pradeepkumarkrish@11";
+char ssid[] = "*********";
+char pass[] = "*********";
 
 BlynkTimer timer;
 
